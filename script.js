@@ -13,7 +13,7 @@ fetch('https://jsonplaceholder.typicode.com/posts?_limit=15&_embed=comments&_exp
 
       let postAuthorElement = document.createElement('span');
       postAuthorElement.classList.add('post-author');
-      postAuthorElement.innerHTML = `Author: <a href="#">${post.user.name}</a>`;
+      postAuthorElement.innerHTML = `Author: <a href="./user.html">${post.user.name}</a>`;
 
       let postContentElement = document.createElement('p');
       postContentElement.classList.add('post-content');
