@@ -1,6 +1,7 @@
-fetch('https://jsonplaceholder.typicode.com/posts?_limit=15')
+fetch('https://jsonplaceholder.typicode.com/posts?_limit=15&_embed=comments&_expand=user')
   .then(res => res.json())
   .then(posts => {
+    console.log(posts);
     let postsList = document.querySelector('#posts-list');
 
     posts.map(post => {
@@ -33,16 +34,27 @@ fetch('https://jsonplaceholder.typicode.com/posts?_limit=15')
       postItem.append(postTitleElement, postAuthorElement, postContentElement, commentsWrapperElement);
       postsList.append(postItem);
 
+
+      console.log(post.user.name);
+
       fetch('https://jsonplaceholder.typicode.com/users/' + post.userId)
         .then(res => res.json())
         .then(user => {
           postAuthorElement.innerHTML = `Author: <a href="#">${user.name}</a>`;
         })
 
+      console.log(post);
+      console.log(post.comments);
+      post.comments.map(comment => {
+        console.log(comment);
+        console.log(comment.name);
+        console.log(comment.body);
+        console.log(comment.email);
+      })
+
       fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`)
         .then(res => res.json())
         .then(comments => {
-          console.log(comments);
           comments.map(comment => {
             let commentItem = document.createElement('div');
             commentItem.classList.add('comment-item');
