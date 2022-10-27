@@ -29,6 +29,11 @@ API nuoroda: https://jsonplaceholder.typicode.com
   5.2. Albumo autoriaus vardą.
   5.3. Nuotrauką.
 
+6. Sukurti naują puslapį album.html ir jame atvaizduoti:
+  6.1. Albumo pavadinimą.
+  6.2. Album autoriaus vardą. Paspaudus ant vardo - nukreipiama į autoriaus puslapį.
+  6.3. Skiltis, kurioje atvaizduojamos visos albumo nuotraukos.
+  
 7. Sukurti naują puslapį post.html ir jame atvaizduoti:
   7.1. Įrašo (post) pavadinimą.
   7.2. Autoriaus vardą. Paspaudus ant autoriaus vardo, turėtų atidaryti autoriaus puslapį.
