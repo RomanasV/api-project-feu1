@@ -1,4 +1,7 @@
-const userId = 1;
+const queryParams = document.location.search;
+const urlParams = new URLSearchParams(queryParams);
+const userId = urlParams.get('user_id');
+
 const userInfo = document.querySelector('.user-info');
 
 fetch('https://jsonplaceholder.typicode.com/users/' + userId)
@@ -56,7 +59,6 @@ fetch(`https://jsonplaceholder.typicode.com/users/${userId}/albums`)
     albumsList.classList.add('albums-list');
 
     albumsWrapper.append(albumsTitle, albumsList);
-    console.log(albums);
 
     albums.map(album => {
       const albumItem = document.createElement('li');
