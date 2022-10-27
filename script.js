@@ -46,3 +46,19 @@ fetch('https://jsonplaceholder.typicode.com/posts?_limit=15&_embed=comments&_exp
       postsList.append(postItem);
     })
   })
+
+fetch(`https://jsonplaceholder.typicode.com/albums?_limit=15&_embed=photos&_expand=user`)
+  .then(res => res.json())
+  .then(albums => {
+    let albumsList = document.querySelector('#albums-list');
+
+    albums.map(album => {
+      let albumItem = document.createElement('div');
+      albumItem.classList.add('album-item');
+      albumsList.append(albumItem);
+
+      albumItem.innerHTML = `<h3 class="album-title"><a href="./album.html">${album.title}</a></h3>
+                             <div class="album-author">Album created by: ${album.user.name}</div>
+                             <img src="${album.photos[0].thumbnailUrl}" alt="${album.photos[0].title}">`;
+    })
+  })
