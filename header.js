@@ -1,10 +1,11 @@
 const header = document.createElement('header');
 const nav = document.createElement('nav');
 const menuList = document.createElement('ul');
+const searchForm = document.createElement('form');
 menuList.classList.add('menu');
 
 document.body.prepend(header);
-nav.append(menuList);
+nav.append(menuList, searchForm);
 header.append(nav);
 
 const menuItems = [
@@ -41,3 +42,7 @@ menuItems.map(item => {
 
   menuList.append(menuItemElement);
 })
+
+searchForm.action = './search.html';
+searchForm.innerHTML = `<input type="text" name="search" id="search-form">
+                        <input type="submit" value="Search">`;

@@ -32,7 +32,11 @@ API nuoroda: https://jsonplaceholder.typicode.com
 6. Sukurti naują puslapį album.html ir jame atvaizduoti:
   6.1. Albumo pavadinimą.
   6.2. Album autoriaus vardą. Paspaudus ant vardo - nukreipiama į autoriaus puslapį.
-  6.3. Skiltis, kurioje atvaizduojamos visos albumo nuotraukos.
+  6.3. Skiltis, kurioje atvaizduojamos visos albumo nuotraukos. Panaudoti library (biblioteką), kuri skirta gražiam galerijos atvaizdavimui, pvz.:
+    6.3.1. https://photoswipe.com/
+    6.3.2. https://nanogallery2.nanostudio.org/
+    6.3.3. https://sachinchoolur.github.io/lightgallery.js/
+    6.3.4. Arba bet kurią kitą.
   
 7. Sukurti naują puslapį post.html ir jame atvaizduoti:
   7.1. Įrašo (post) pavadinimą.
@@ -57,20 +61,6 @@ API nuoroda: https://jsonplaceholder.typicode.com
   10.2. Users / vartotojų puslapis.
   10.3. Albums / albumų puslapis.
   10.4. Posts / pranešimų puslapis.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 11. Sukurti paieškos funkcionalumą navigacijos elemente:
 11.1. Navigacijos elemente sukurti formą, kuri turi text tipo input elementą (nepamiršti pridėti name atributą).
