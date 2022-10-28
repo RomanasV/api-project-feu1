@@ -57,7 +57,7 @@ fetch(`https://jsonplaceholder.typicode.com/albums?_limit=15&_embed=photos&_expa
       albumItem.classList.add('album-item');
       albumsList.append(albumItem);
 
-      albumItem.innerHTML = `<h3 class="album-title"><a href="./album.html">${album.title}</a></h3>
+      albumItem.innerHTML = `<h3 class="album-title"><a href="./album.html?album_id=${album.id}">${album.title}</a></h3>
                              <div class="album-author">Album created by: ${album.user.name}</div>
                              <img src="${album.photos[0].thumbnailUrl}" alt="${album.photos[0].title}">`;
     })

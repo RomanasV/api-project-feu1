@@ -66,7 +66,7 @@ fetch(`https://jsonplaceholder.typicode.com/users/${userId}/albums`)
 
       const albumItemLink = document.createElement('a');
       albumItemLink.textContent = album.title;
-      albumItemLink.href = './album.html';
+      albumItemLink.href = './album.html?album_id=' + album.id;
 
       albumItem.append(albumItemLink);
       albumsList.append(albumItem);

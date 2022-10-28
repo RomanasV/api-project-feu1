@@ -4,29 +4,43 @@ const albumId = urlParams.get('album_id');
 
 const albumWrapper = document.querySelector('#album-wrapper');
 
-fetch(`https://jsonplaceholder.typicode.com/albums/${albumId}?_embed=photos&_expand=user`)
-  .then(res => res.json())
-  .then(album => {
-    let { title, user, photos } = album;
+if (albumId) {
+  fetch(`https://jsonplaceholder.typicode.com/albums/${albumId}?_embed=photos&_expand=user`)
+    .then(res => res.json())
+    .then(album => {
+      if (!album.id) {
+        renderErrorMessage(albumWrapper);
+        return;
+      }
 
-    const albumTitle = document.createElement('h1');
-    albumTitle.classList.add('album-title', 'page-title');
-    albumTitle.textContent = title;
+      let { title, user, photos } = album;
 
-    const albumAuthor = document.createElement('span');
-    albumAuthor.classList.add('album-author');
-    albumAuthor.innerHTML = `<strong>Album author:</strong> <a href="./user.html?user_id=${user.id}">${user.name}</a>`;
+      const albumTitle = document.createElement('h1');
+      albumTitle.classList.add('album-title', 'page-title');
+      albumTitle.textContent = title;
 
-    const photosList = document.createElement('div');
-    photosList.classList.add('photos-list');
+      const albumAuthor = document.createElement('span');
+      albumAuthor.classList.add('album-author');
+      albumAuthor.innerHTML = `<strong>Album author:</strong> <a href="./user.html?user_id=${user.id}">${user.name}</a>`;
 
-    albumWrapper.append(albumTitle, albumAuthor, photosList);
+      const photosList = document.createElement('div');
+      photosList.classList.add('photos-list');
 
-    photos.map(photo => {
-      const photoItem = document.createElement('img');
-      photoItem.src = photo.thumbnailUrl;
-      photoItem.alt = photo.title;
+      albumWrapper.append(albumTitle, albumAuthor, photosList);
 
-      photosList.append(photoItem);
+      photos.map(photo => {
+        const photoItem = document.createElement('img');
+        photoItem.src = photo.thumbnailUrl;
+        photoItem.alt = photo.title;
+
+        photosList.append(photoItem);
+      })
     })
-  })
+} else {
+  renderErrorMessage(albumWrapper);
+}
+
+function renderErrorMessage(parentElement) {
+  parentElement.innerHTML = `<h1>Something went wrong... Album not found.</h1>
+                             <a href="./index.html">Back to home page</a>`;
+}
