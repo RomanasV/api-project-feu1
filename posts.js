@@ -1,4 +1,15 @@
-fetch('https://jsonplaceholder.typicode.com/posts')
+const queryParams = document.location.search;
+const urlParams = new URLSearchParams(queryParams);
+const userId = urlParams.get('user_id');
+
+let fetchUrl = '';
+if (userId) {
+  fetchUrl = `https://jsonplaceholder.typicode.com/users/${userId}/posts`;
+} else {
+  fetchUrl = 'https://jsonplaceholder.typicode.com/posts';
+}
+
+fetch(fetchUrl)
   .then(res => res.json())
   .then(posts => {
     const postsWrapper = document.querySelector('#posts-wrapper');

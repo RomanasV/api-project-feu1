@@ -11,7 +11,7 @@ fetch(`https://jsonplaceholder.typicode.com/posts/${postId}?_expand=user&_embed=
 
     let postAuthorElement = document.createElement('span');
     postAuthorElement.classList.add('post-author');
-    postAuthorElement.innerHTML = `Author: <a href="./user.html">${post.user.name}</a>`;
+    postAuthorElement.innerHTML = `Author: <a href="./user.html?user_id=${post.user.id}">${post.user.name}</a>`;
 
     let postContentElement = document.createElement('p');
     postContentElement.classList.add('post-content');
@@ -44,7 +44,7 @@ fetch(`https://jsonplaceholder.typicode.com/posts/${postId}?_expand=user&_embed=
 
     let moreAuthorPostsElement = document.createElement('a');
     moreAuthorPostsElement.classList.add('more-posts');
-    moreAuthorPostsElement.href = './posts.html';
+    moreAuthorPostsElement.href = './posts.html?user_id=' + post.user.id;
     moreAuthorPostsElement.textContent = `Other posts of ${post.user.name}`;
 
     postWrapper.append(moreAuthorPostsElement);
