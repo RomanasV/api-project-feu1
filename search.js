@@ -1,4 +1,4 @@
-function init() {
+async function init() {
   const queryParams = document.location.search;
   const urlParams = new URLSearchParams(queryParams);
   const search = urlParams.get('search');
@@ -9,68 +9,68 @@ function init() {
   searchPageTitle.textContent = `Results, search phrase: ${search}`;
 
   searchResults.append(searchPageTitle);
+
+  const usersRes = await fetch(`https://jsonplaceholder.typicode.com/users?q=${search}`);
+  const users = await usersRes.json();
+
+  const postsRes = await fetch(`https://jsonplaceholder.typicode.com/posts?q=${search}`);
+  const posts = await postsRes.json();
+
+  const albumsRes = await fetch(`https://jsonplaceholder.typicode.com/albums?q=${search}`);
+  const albums = await albumsRes.json()
   
-  fetch(`https://jsonplaceholder.typicode.com/users?q=${search}`)
-    .then(res => res.json())
-    .then(users => {
-      const formattedUsers = users.map(user => {
-        const formattedUser = {
-          id: user.id,
-          title: user.name,
-        }
+  const formattedUsers = users.map(user => {
+    const formattedUser = {
+      id: user.id,
+      title: user.name,
+    }
 
-        return formattedUser;
-      });
+    return formattedUser;
+  });
 
-      renderSearchResults({
-        data: formattedUsers,
-        parentElement: searchResults,
-        title: 'Users:',
-        path: 'user',
-      });
-    })
+  renderSearchResults({
+    data: formattedUsers,
+    parentElement: searchResults,
+    title: 'Users',
+    path: 'user',
+  });
 
-  fetch(`https://jsonplaceholder.typicode.com/posts?q=${search}`)
-    .then(res => res.json())
-    .then(posts => {
-      renderSearchResults({
-        data: posts,
-        parentElement: searchResults,
-        title: 'Posts:',
-        path: 'post',
-      });
-    })
+  renderSearchResults({
+    data: posts,
+    parentElement: searchResults,
+    title: 'Posts',
+    path: 'post',
+  });
 
-  fetch(`https://jsonplaceholder.typicode.com/albums?q=${search}`)
-    .then(res => res.json())
-    .then(albums => {
-      const params = {
-        data: albums,
-        parentElement: searchResults,
-        title: 'Albums:',
-        path: 'album',
-      };
+  const params = {
+    data: albums,
+    parentElement: searchResults,
+    title: 'Albums',
+    path: 'album',
+  };
 
-      renderSearchResults(params);
-    })
+  renderSearchResults(params);
 }
 
 function renderSearchResults(paramsObj) {
   let { data, parentElement, title, path } = paramsObj;
 
-  if (data.length > 0) {
-    const wrapper = document.createElement('div');
-    wrapper.classList.add('search-result-wrapper');
-    parentElement.append(wrapper);
+  const wrapper = document.createElement('div');
+  wrapper.classList.add('search-result-wrapper');
+  parentElement.append(wrapper);
 
-    const wrapperTitle = document.createElement('h2');
-    wrapperTitle.classList.add('search-wrapper-title');
-    wrapperTitle.textContent = title;
+  const wrapperTitle = document.createElement('h2');
+  wrapperTitle.classList.add('search-wrapper-title');
+
+  wrapper.append(wrapperTitle);
+
+  if (data.length > 0) {
+    wrapperTitle.textContent = title + ':';
 
     const list = document.createElement('ul');
     list.classList.add('search-list');
 
-    wrapper.append(wrapperTitle, list);
+    wrapper.append(list);
 
     data.map(item => {
       const itemElement = document.createElement('li');
@@ -84,7 +84,7 @@ function renderSearchResults(paramsObj) {
       list.append(itemElement);
     })
   } else {
-    console.log('No albums...')
+    wrapperTitle.textContent = 'No ' + title.toLowerCase() + '... :(';
   }
 }
 
