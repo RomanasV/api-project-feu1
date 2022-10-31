@@ -9,81 +9,36 @@ function init() {
   searchPageTitle.textContent = `Results, search phrase: ${search}`;
 
   searchResults.append(searchPageTitle);
-  console.log(search);
   
   fetch(`https://jsonplaceholder.typicode.com/users?q=${search}`)
     .then(res => res.json())
     .then(users => {
-      if (users.length > 0) {
-        const usersWrapper = document.createElement('div');
-        usersWrapper.classList.add('users-wrapper', 'search-result-wrapper');
-        searchResults.append(usersWrapper);
+      const formattedUsers = users.map(user => {
+        const formattedUser = {
+          id: user.id,
+          title: user.name,
+        }
 
-        const usersWrapperTitle = document.createElement('h2');
-        usersWrapperTitle.classList.add('search-wrapper-title');
-        usersWrapperTitle.textContent = 'Users:';
+        return formattedUser;
+      });
 
-        const usersList = document.createElement('ul');
-        usersList.classList.add('search-list');
-
-        usersWrapper.append(usersWrapperTitle, usersList);
-
-        users.map(user => {
-          const userItem = document.createElement('li');
-          userItem.classList.add('search-item');          
-
-          const userLink = document.createElement('a');
-          userLink.textContent = user.name;
-          userLink.href = './user.html?user_id=' + user.id;
-
-          userItem.append(userLink);
-          usersList.append(userItem);
-        })
-      } else {
-        console.log('No users...');
-      }
+      renderSearchResults({
+        data: formattedUsers,
+        parentElement: searchResults,
+        title: 'Users:',
+        path: 'user',
+      });
     })
 
   fetch(`https://jsonplaceholder.typicode.com/posts?q=${search}`)
     .then(res => res.json())
     .then(posts => {
-      // if (posts.length > 0) {
-      //   const postsWrapper = document.createElement('div');
-      //   postsWrapper.classList.add('posts-wrapper', 'search-result-wrapper');
-      //   searchResults.append(postsWrapper);
-
-      //   const postsWrapperTitle = document.createElement('h2');
-      //   postsWrapperTitle.classList.add('search-wrapper-title');
-      //   postsWrapperTitle.textContent = 'Posts:';
-
-      //   const postsList = document.createElement('ul');
-      //   postsList.classList.add('search-list');
-
-      //   postsWrapper.append(postsWrapperTitle, postsList);
-
-      //   posts.map(post => {
-      //     const postItem = document.createElement('li');
-      //     postItem.classList.add('search-item');
-  
-      //     const postLink = document.createElement('a');
-      //     postLink.textContent = post.title;
-      //     postLink.href = './post.html?post_id=' + post.id;
-  
-      //     postItem.append(postLink);
-      //     postsList.append(postItem);
-      //   })
-      // } else {
-      //   console.log('No users...')
-      // }
-
-      const params = {
+      renderSearchResults({
         data: posts,
         parentElement: searchResults,
         title: 'Posts:',
         path: 'post',
-      }
-
-      renderSearchResults(params);
+      });
     })
 
   fetch(`https://jsonplaceholder.typicode.com/albums?q=${search}`)
