@@ -1,9 +1,7 @@
-import { firstLetterUpperCase } from "./functions.js";
+import { firstLetterUpperCase, getUrlParam } from "./functions.js";
 import renderHeader from "./header.js";
 
-const queryParams = document.location.search;
-const urlParams = new URLSearchParams(queryParams);
-const userId = urlParams.get('user_id');
+const userId = getUrlParam('user_id');
 
 let fetchUrl = '';
 if (userId) {

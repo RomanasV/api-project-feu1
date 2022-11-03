@@ -1,4 +1,4 @@
-import { firstLetterUpperCase } from './functions.js';
+import { firstLetterUpperCase, getUrlParam } from './functions.js';
 import renderHeader from './header.js';
 
 async function init() {
@@ -8,9 +8,7 @@ async function init() {
 }
 
 function outerSearchForm() {
-  const queryParams = document.location.search;
-  const urlParams = new URLSearchParams(queryParams);
-  const search = urlParams.get('search');
+  const search = getUrlParam('search');
   getSearchResults(search);
 }
 

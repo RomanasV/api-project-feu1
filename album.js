@@ -1,10 +1,8 @@
-import { firstLetterUpperCase } from "./functions.js";
+import { firstLetterUpperCase, getUrlParam } from "./functions.js";
 import renderHeader from "./header.js";
 
 function init() {
-  const queryParams = document.location.search;
-  const urlParams = new URLSearchParams(queryParams);
-  const albumId = urlParams.get('album_id');
+  const albumId = getUrlParam('album_id');
   
   const albumWrapper = document.querySelector('#album-wrapper');
   

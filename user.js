@@ -1,9 +1,7 @@
 import renderHeader from './header.js';
-import { firstLetterUpperCase } from './functions.js';
+import { firstLetterUpperCase, getUrlParam } from './functions.js';
 
-const queryParams = document.location.search;
-const urlParams = new URLSearchParams(queryParams);
-const userId = urlParams.get('user_id');
+const userId = getUrlParam('user_id');
 
 const userInfo = document.querySelector('.user-info');
 
