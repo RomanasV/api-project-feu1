@@ -1,4 +1,5 @@
 import renderHeader from './header.js';
+import { firstLetterUpperCase } from './functions.js';
 
 async function init() {
   const queryParams = document.location.search;
@@ -18,7 +19,7 @@ async function init() {
 function renderSinglePost(post, postWrapper) {
   let postTitleElement = document.createElement('h2');
   postTitleElement.classList.add('post-title');
-  postTitleElement.textContent = post.title;
+  postTitleElement.textContent = firstLetterUpperCase(post.title);
 
   let postAuthorElement = document.createElement('span');
   postAuthorElement.classList.add('post-author');
@@ -26,7 +27,7 @@ function renderSinglePost(post, postWrapper) {
 
   let postContentElement = document.createElement('p');
   postContentElement.classList.add('post-content');
-  postContentElement.textContent = post.body;
+  postContentElement.textContent = firstLetterUpperCase(post.body);
 
   postWrapper.append(postTitleElement, postAuthorElement, postContentElement);
 }
@@ -46,9 +47,9 @@ function renderAllComments(post, postWrapper) {
     let commentItem = document.createElement('div');
     commentItem.classList.add('comment-item');
 
-    commentItem.innerHTML = `<h4 class="comment-title">${comment.name}</h4>
+    commentItem.innerHTML = `<h4 class="comment-title">${firstLetterUpperCase(comment.name)}</h4>
                               <span class="comment-author">Comment's author: ${comment.email}</span>
-                              <p class="comment-content">${comment.body}</p>`;
+                              <p class="comment-content">${firstLetterUpperCase(comment.body)}</p>`;
 
     commentsListElement.append(commentItem);
   })

@@ -1,4 +1,5 @@
-import renderHeader from "./header.js";
+import renderHeader from './header.js';
+import { firstLetterUpperCase } from './functions.js';
 
 const queryParams = document.location.search;
 const urlParams = new URLSearchParams(queryParams);
@@ -40,9 +41,9 @@ fetch(`https://jsonplaceholder.typicode.com/users/${userId}/posts`)
       const postItem = document.createElement('div');
       postItem.classList.add('post-item');
 
-      postItem.innerHTML = `<h4>${post.title}</h4>
-                            <p>${post.body}</p>
-                            <a href="./post.html">Read more</a>`;
+      postItem.innerHTML = `<h4>${firstLetterUpperCase(post.title)}</h4>
+                            <p>${firstLetterUpperCase(post.body)}</p>
+                            <a href="./post.html?post_id=${post.id}">Read more</a>`;
 
       postsList.append(postItem);
     })
