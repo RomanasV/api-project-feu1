@@ -1,3 +1,5 @@
+import renderHeader from './header.js';
+
 fetch('https://jsonplaceholder.typicode.com/albums?_embed=photos')
   .then(res => res.json())
   .then(albums => {
@@ -27,4 +29,6 @@ fetch('https://jsonplaceholder.typicode.com/albums?_embed=photos')
 
       albumsList.append(albumItem);
     })
+    
+    renderHeader();
   })

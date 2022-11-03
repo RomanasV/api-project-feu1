@@ -1,3 +1,5 @@
+import renderHeader from './header.js';
+
 async function init() {
   const queryParams = document.location.search;
   const urlParams = new URLSearchParams(queryParams);
@@ -10,6 +12,7 @@ async function init() {
 
   renderSinglePost(post, postWrapper);
   renderAllComments(post, postWrapper);
+  renderHeader();
 }
 
 function renderSinglePost(post, postWrapper) {
