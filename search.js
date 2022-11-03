@@ -1,6 +1,9 @@
+import renderHeader from './header.js';
+
 async function init() {
   outerSearchForm();
   innerSearchForm();
+  renderHeader();
 }
 
 function outerSearchForm() {

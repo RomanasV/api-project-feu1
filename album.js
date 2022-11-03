@@ -1,3 +1,5 @@
+import renderHeader from "./header.js";
+
 function init() {
   const queryParams = document.location.search;
   const urlParams = new URLSearchParams(queryParams);
@@ -10,6 +12,8 @@ function init() {
   } else {
     renderErrorMessage(albumWrapper);
   }
+
+  renderHeader();
 }
 
 async function renderAlbumsList(albumId, albumWrapper) {

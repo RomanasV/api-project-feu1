@@ -1,3 +1,5 @@
+import renderHeader from './header.js';
+
 fetch('https://jsonplaceholder.typicode.com/users?_embed=posts')
   .then(res => res.json())
   .then(users => {
@@ -20,3 +22,5 @@ fetch('https://jsonplaceholder.typicode.com/users?_embed=posts')
       usersList.append(userItem);
     })
   })
+
+renderHeader();

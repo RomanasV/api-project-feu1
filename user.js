@@ -1,3 +1,5 @@
+import renderHeader from "./header.js";
+
 const queryParams = document.location.search;
 const urlParams = new URLSearchParams(queryParams);
 const userId = urlParams.get('user_id');
@@ -72,3 +74,5 @@ fetch(`https://jsonplaceholder.typicode.com/users/${userId}/albums`)
       albumsList.append(albumItem);
     })
   })
+
+renderHeader();

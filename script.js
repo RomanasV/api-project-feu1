@@ -1,3 +1,5 @@
+import renderHeader from './header.js';
+
 async function init() {
   const contentWrapper = document.querySelector('#content-wrapper');
 
@@ -5,6 +7,8 @@ async function init() {
   const albumsListElement = await renderAlbums();
 
   contentWrapper.append(postsListELement, albumsListElement);
+
+  renderHeader();
 }
 
 async function renderPosts() {
