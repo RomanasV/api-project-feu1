@@ -1,3 +1,4 @@
+import { firstLetterUpperCase } from "./functions.js";
 import renderHeader from "./header.js";
 
 function init() {
@@ -29,7 +30,7 @@ async function renderAlbumsList(albumId, albumWrapper) {
 
   const albumTitle = document.createElement('h1');
   albumTitle.classList.add('album-title', 'page-title');
-  albumTitle.textContent = title;
+  albumTitle.textContent = firstLetterUpperCase(title);
 
   const albumAuthor = document.createElement('span');
   albumAuthor.classList.add('album-author');

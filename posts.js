@@ -1,3 +1,4 @@
+import { firstLetterUpperCase } from "./functions.js";
 import renderHeader from "./header.js";
 
 const queryParams = document.location.search;
@@ -28,7 +29,7 @@ fetch(fetchUrl)
     posts.map(post => {
       const postItem = document.createElement('li');
       postItem.classList.add('post-item');
-      postItem.innerHTML = `<a href="./post.html?post_id=${post.id}">${post.title}</a>`;
+      postItem.innerHTML = `<a href="./post.html?post_id=${post.id}">${firstLetterUpperCase(post.title)}</a>`;
       postsList.append(postItem);
     })
   })

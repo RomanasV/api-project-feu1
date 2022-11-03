@@ -1,3 +1,4 @@
+import { firstLetterUpperCase } from './functions.js';
 import renderHeader from './header.js';
 
 fetch('https://jsonplaceholder.typicode.com/albums?_embed=photos')
@@ -23,7 +24,7 @@ fetch('https://jsonplaceholder.typicode.com/albums?_embed=photos')
       albumItem.classList.add('album-item');
 
       albumItem.innerHTML = `<a href="./album.html?album_id=${album.id}">
-                              <h2 class="album-title">${album.title}</h2>
+                              <h2 class="album-title">${firstLetterUpperCase(album.title)}</h2>
                               <img src="${randomPhoto.thumbnailUrl}" alt="${randomPhoto.title}">
                              </a>`;
 

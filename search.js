@@ -1,3 +1,4 @@
+import { firstLetterUpperCase } from './functions.js';
 import renderHeader from './header.js';
 
 async function init() {
@@ -101,7 +102,7 @@ function renderSearchResults(paramsObj) {
       itemElement.classList.add('search-list-item');
 
       const linkElement = document.createElement('a');
-      linkElement.textContent = item.title;
+      linkElement.textContent = firstLetterUpperCase(item.title);
       linkElement.href = `./${path}.html?${path}_id=${item.id}`;
 
       itemElement.append(linkElement);

@@ -1,3 +1,4 @@
+import { firstLetterUpperCase } from './functions.js';
 import renderHeader from './header.js';
 
 async function init() {
@@ -24,7 +25,7 @@ async function renderPosts() {
 
     let postTitleElement = document.createElement('h2');
     postTitleElement.classList.add('post-title');
-    postTitleElement.textContent = post.title;
+    postTitleElement.textContent = firstLetterUpperCase(post.title);
 
     let postAuthorElement = document.createElement('span');
     postAuthorElement.classList.add('post-author');
@@ -32,7 +33,7 @@ async function renderPosts() {
 
     let postContentElement = document.createElement('p');
     postContentElement.classList.add('post-content');
-    postContentElement.textContent = post.body;
+    postContentElement.textContent = firstLetterUpperCase(post.body);
 
     let commentsWrapperElement = document.createElement('div');
     commentsWrapperElement.classList.add('comments-wrapper');
@@ -48,9 +49,9 @@ async function renderPosts() {
       let commentItem = document.createElement('div');
       commentItem.classList.add('comment-item');
 
-      commentItem.innerHTML = `<h4 class="comment-title">${comment.name}</h4>
+      commentItem.innerHTML = `<h4 class="comment-title">${firstLetterUpperCase(comment.name)}</h4>
                               <span class="comment-author">Commented by: ${comment.email}</span>
-                              <p class="comment-content">${comment.body}</p>`;
+                              <p class="comment-content">${firstLetterUpperCase(comment.body)}</p>`;
 
       commentsListElement.append(commentItem);
     })
@@ -76,7 +77,7 @@ async function renderAlbums() {
     albumItem.classList.add('album-item');
     albumsList.append(albumItem);
 
-    albumItem.innerHTML = `<h3 class="album-title"><a href="./album.html?album_id=${album.id}">${album.title}</a></h3>
+    albumItem.innerHTML = `<h3 class="album-title"><a href="./album.html?album_id=${album.id}">${firstLetterUpperCase(album.title)}</a></h3>
                           <div class="album-author">Album created by: ${album.user.name}</div>
                           <img src="${album.photos[0].thumbnailUrl}" alt="${album.photos[0].title}">`;
   })
