@@ -1,9 +1,30 @@
 async function init() {
+  outerSearchForm();
+  innerSearchForm();
+}
+
+function outerSearchForm() {
   const queryParams = document.location.search;
   const urlParams = new URLSearchParams(queryParams);
   const search = urlParams.get('search');
-  
+  getSearchResults(search);
+}
+
+function innerSearchForm() {
+  const searchForm = document.querySelector('#inner-search-form');
+  searchForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const searchInput = event.target.elements['search-input'].value;
+    getSearchResults(searchInput);
+    event.target.reset();
+  })
+}
+
+async function getSearchResults(search) {
   const searchResults = document.querySelector('#search-results');
+
+  searchResults.innerHTML = '';
+
   const searchPageTitle = document.createElement('h1');
   searchPageTitle.classList.add('page-title', 'search-page-title');
   searchPageTitle.textContent = `Results, search phrase: ${search}`;
