@@ -73,3 +73,5 @@ API nuoroda: https://jsonplaceholder.typicode.com
 11.4.1. Vartotojus.
 11.4.2. Postus.
 11.4.2. Albumus.
+
+11.5. Search puslapyje turi būti paieškos forma, kuri veikia neperkraunant puslapio.
