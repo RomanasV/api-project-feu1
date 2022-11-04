@@ -1,4 +1,4 @@
-import { firstLetterUpperCase, renderAllComments, renderSinglePost } from './functions.js';
+import { createElement, fetchData, firstLetterUpperCase, renderAllComments, renderSinglePost } from './functions.js';
 import renderHeader from './header.js';
 
 async function init() {
@@ -20,8 +20,7 @@ async function renderPosts() {
   postsList.id = 'posts-list';
 
   posts.map(post => {
-    const postItem = document.createElement('div');
-    postItem.classList.add('post-item');
+    const postItem = createElement('div', '', 'post-item');
 
     const postContent = renderSinglePost(post);
     const postComments = renderAllComments(post);
@@ -34,15 +33,12 @@ async function renderPosts() {
 }
 
 async function renderAlbums() {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/albums?_limit=15&_embed=photos&_expand=user`);
-  const albums = await res.json();
+  const albums = await fetchData(`https://jsonplaceholder.typicode.com/albums?_limit=15&_embed=photos&_expand=user`);
 
-  let albumsList = document.createElement('div');
-  albumsList.id = 'albums-list';
+  const albumsList = createElement('div', '', 'albums-list');
 
   albums.map(album => {
-    let albumItem = document.createElement('div');
-    albumItem.classList.add('album-item');
+    const albumItem = createElement('div', '', 'album-item');
     albumsList.append(albumItem);
 
     albumItem.innerHTML = `<h3 class="album-title"><a href="./album.html?album_id=${album.id}">${firstLetterUpperCase(album.title)}</a></h3>

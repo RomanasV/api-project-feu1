@@ -1,35 +1,47 @@
-import { firstLetterUpperCase } from './functions.js';
+import { firstLetterUpperCase, fetchData } from './functions.js';
 import renderHeader from './header.js';
 
-fetch('https://jsonplaceholder.typicode.com/albums?_embed=photos')
-  .then(res => res.json())
-  .then(albums => {
-    const albumsWrapper = document.querySelector('#albums-wrapper');
+async function init() {
+  const albums = await fetchData('https://jsonplaceholder.typicode.com/albums?_embed=photos');
 
-    const pageTitle = document.createElement('h1');
-    pageTitle.classList.add('page-title');
-    pageTitle.textContent = 'Albums list:';
+  const albumsWrapper = document.querySelector('#albums-wrapper');
+  const albumsElement = createAlbumsListElement(albums);
 
-    const albumsList = document.createElement('div');
-    albumsList.classList.add('albums-list');
+  albumsWrapper.append(albumsElement);
+  
+  renderHeader();
+}
 
-    albumsWrapper.append(pageTitle, albumsList);
+function createAlbumsListElement(albums) {
+  const albumsContainer = document.createElement('div');
+  albumsContainer.classList.add('albums-container');
 
-    albums.map(album => {
-      const photosCount = album.photos.length;
-      const randomIndex = Math.floor(Math.random() * photosCount);
-      const randomPhoto = album.photos[randomIndex];
+  const pageTitle = document.createElement('h1');
+  pageTitle.classList.add('page-title');
+  pageTitle.textContent = 'Albums list:';
 
-      const albumItem = document.createElement('div');
-      albumItem.classList.add('album-item');
+  const albumsList = document.createElement('div');
+  albumsList.classList.add('albums-list');
 
-      albumItem.innerHTML = `<a href="./album.html?album_id=${album.id}">
-                              <h2 class="album-title">${firstLetterUpperCase(album.title)}</h2>
-                              <img src="${randomPhoto.thumbnailUrl}" alt="${randomPhoto.title}">
-                             </a>`;
+  albumsContainer.append(pageTitle, albumsList);
 
-      albumsList.append(albumItem);
-    })
-    
-    renderHeader();
+  albums.map(album => {
+    const photosCount = album.photos.length;
+    const randomIndex = Math.floor(Math.random() * photosCount);
+    const randomPhoto = album.photos[randomIndex];
+
+    const albumItem = document.createElement('div');
+    albumItem.classList.add('album-item');
+
+    albumItem.innerHTML = `<a href="./album.html?album_id=${album.id}">
+                            <h2 class="album-title">${firstLetterUpperCase(album.title)}</h2>
+                            <img src="${randomPhoto.thumbnailUrl}" alt="${randomPhoto.title}">
+                          </a>`;
+
+    albumsList.append(albumItem);
   })
+
+  return albumsContainer;
+}
+
+init();

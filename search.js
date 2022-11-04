@@ -1,4 +1,4 @@
-import { createLinksList, getUrlParam } from './functions.js';
+import { createElement, createLinksList, fetchData, getUrlParam } from './functions.js';
 import renderHeader from './header.js';
 
 async function init() {
@@ -27,21 +27,14 @@ async function getSearchResults(search) {
 
   searchResults.innerHTML = '';
 
-  const searchPageTitle = document.createElement('h1');
-  searchPageTitle.classList.add('page-title', 'search-page-title');
-  searchPageTitle.textContent = `Results, search phrase: ${search}`;
+  const searchPageTitle = createElement('h1', `Results, search phrase: ${search}`, 'page-title search-page-title');
 
   searchResults.append(searchPageTitle);
 
-  const usersRes = await fetch(`https://jsonplaceholder.typicode.com/users?q=${search}`);
-  const users = await usersRes.json();
+  const users = await fetchData(`https://jsonplaceholder.typicode.com/users?q=${search}`);
+  const posts = await fetchData(`https://jsonplaceholder.typicode.com/posts?q=${search}`);
+  const albums = await fetchData(`https://jsonplaceholder.typicode.com/albums?q=${search}`);
 
-  const postsRes = await fetch(`https://jsonplaceholder.typicode.com/posts?q=${search}`);
-  const posts = await postsRes.json();
-
-  const albumsRes = await fetch(`https://jsonplaceholder.typicode.com/albums?q=${search}`);
-  const albums = await albumsRes.json()
-  
   const formattedUsers = users.map(user => {
     const formattedUser = {
       id: user.id,
@@ -78,13 +71,10 @@ async function getSearchResults(search) {
 function renderSearchResults(paramsObj) {
   let { data, parentElement, title, path } = paramsObj;
 
-  const wrapper = document.createElement('div');
-  wrapper.classList.add('search-result-wrapper');
+  const wrapper = createElement('div', '', 'search-result-wrapper');
   parentElement.append(wrapper);
 
-  const wrapperTitle = document.createElement('h2');
-  wrapperTitle.classList.add('search-wrapper-title');
-
+  const wrapperTitle = createElement('h2', '', 'search-wrapper-title');
   wrapper.append(wrapperTitle);
 
   if (data.length > 0) {

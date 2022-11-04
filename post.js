@@ -1,11 +1,10 @@
 import renderHeader from './header.js';
-import { getUrlParam, renderSinglePost, renderAllComments } from './functions.js';
+import { getUrlParam, renderSinglePost, renderAllComments, fetchData } from './functions.js';
 
 async function init() {
   const postId = getUrlParam('post_id');
   
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}?_expand=user&_embed=comments`);
-  const post = await res.json();
+  const post = await fetchData(`https://jsonplaceholder.typicode.com/posts/${postId}?_expand=user&_embed=comments`);
   
   const postWrapper = document.querySelector('#post-wrapper');
   const postContent = renderSinglePost(post);

@@ -89,3 +89,21 @@ export function renderAllComments(post) {
 
   return commentsWrapperElement;
 }
+
+export async function fetchData(url) {
+  const res = await fetch(url);
+  const result = await res.json();
+  return result;
+}
+
+export function createElement(tag, content, className = '') {
+  if (!tag) return;
+
+  const element = document.createElement(tag);
+  element.textContent = content;
+
+  if (className) {
+    element.className = className;
+  }
+  return element;
+}

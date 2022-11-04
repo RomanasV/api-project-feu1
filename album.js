@@ -1,4 +1,4 @@
-import { firstLetterUpperCase, getUrlParam } from "./functions.js";
+import { fetchData, firstLetterUpperCase, getUrlParam } from "./functions.js";
 import renderHeader from "./header.js";
 
 function init() {
@@ -16,8 +16,7 @@ function init() {
 }
 
 async function renderAlbumsList(albumId, albumWrapper) {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/albums/${albumId}?_embed=photos&_expand=user`);
-  const album = await res.json();
+  const album = await fetchData(`https://jsonplaceholder.typicode.com/albums/${albumId}?_embed=photos&_expand=user`);
 
   if (!album.id) {
     renderErrorMessage(albumWrapper);
