@@ -1,4 +1,4 @@
-fetch('https://jsonplaceholder.typicode.com/posts', {
+fetch('https://jsonplaceholder.typicode.com/posts/?_expand=user', {
   method: 'POST',
   body: JSON.stringify({
     title: 'Pavadinimas',
