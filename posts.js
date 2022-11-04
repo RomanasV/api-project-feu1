@@ -1,4 +1,4 @@
-import { firstLetterUpperCase, getUrlParam } from "./functions.js";
+import { createLinksList, getUrlParam } from "./functions.js";
 import renderHeader from "./header.js";
 
 const userId = getUrlParam('user_id');
@@ -18,18 +18,16 @@ fetch(fetchUrl)
     const pageTitle = document.createElement('h1');
     pageTitle.classList.add('page-title');
     pageTitle.textContent = 'Posts List:';
+    
+    postsWrapper.append(pageTitle);
 
-    const postsList = document.createElement('ul');
-    postsList.classList.add('posts-list');
-
-    postsWrapper.append(pageTitle, postsList);
-
-    posts.map(post => {
-      const postItem = document.createElement('li');
-      postItem.classList.add('post-item');
-      postItem.innerHTML = `<a href="./post.html?post_id=${post.id}">${firstLetterUpperCase(post.title)}</a>`;
-      postsList.append(postItem);
-    })
+    createLinksList({
+      wrapper: postsWrapper, 
+      data: posts,
+      path: 'post',
+      listClasses: ['posts-list'],
+      itemClasses: ['post-item']
+    });
   })
 
 renderHeader();

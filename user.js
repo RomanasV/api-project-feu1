@@ -1,5 +1,5 @@
 import renderHeader from './header.js';
-import { firstLetterUpperCase, getUrlParam } from './functions.js';
+import { createLinksList, firstLetterUpperCase, getUrlParam } from './functions.js';
 
 const userId = getUrlParam('user_id');
 
@@ -55,23 +55,16 @@ fetch(`https://jsonplaceholder.typicode.com/users/${userId}/albums`)
     const albumsTitle = document.createElement('h3');
     albumsTitle.classList.add('albums-title');
     albumsTitle.textContent = 'User Albums:';
+    
+    albumsWrapper.append(albumsTitle);
 
-    const albumsList = document.createElement('ul');
-    albumsList.classList.add('albums-list');
-
-    albumsWrapper.append(albumsTitle, albumsList);
-
-    albums.map(album => {
-      const albumItem = document.createElement('li');
-      albumItem.classList.add('album-item');
-
-      const albumItemLink = document.createElement('a');
-      albumItemLink.textContent = album.title;
-      albumItemLink.href = './album.html?album_id=' + album.id;
-
-      albumItem.append(albumItemLink);
-      albumsList.append(albumItem);
-    })
+    createLinksList({
+      wrapper: albumsWrapper,
+      data: albums,
+      path: 'album',
+      listClasses: ['albums-list'],
+      itemClasses: ['album-item'],
+    });
   })
 
 renderHeader();

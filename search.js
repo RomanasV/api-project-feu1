@@ -1,4 +1,4 @@
-import { firstLetterUpperCase, getUrlParam } from './functions.js';
+import { createLinksList, getUrlParam } from './functions.js';
 import renderHeader from './header.js';
 
 async function init() {
@@ -90,22 +90,14 @@ function renderSearchResults(paramsObj) {
   if (data.length > 0) {
     wrapperTitle.textContent = title + ':';
 
-    const list = document.createElement('ul');
-    list.classList.add('search-list');
-
-    wrapper.append(list);
-
-    data.map(item => {
-      const itemElement = document.createElement('li');
-      itemElement.classList.add('search-list-item');
-
-      const linkElement = document.createElement('a');
-      linkElement.textContent = firstLetterUpperCase(item.title);
-      linkElement.href = `./${path}.html?${path}_id=${item.id}`;
-
-      itemElement.append(linkElement);
-      list.append(itemElement);
-    })
+    let params = {
+      wrapper,
+      data,
+      path,
+      listClasses: ['search-list'],
+      itemClasses: ['search-item'],
+    }
+    createLinksList(params);
   } else {
     wrapperTitle.textContent = 'No ' + title.toLowerCase() + '... :(';
   }
