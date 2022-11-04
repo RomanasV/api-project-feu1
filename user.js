@@ -55,16 +55,15 @@ fetch(`https://jsonplaceholder.typicode.com/users/${userId}/albums`)
     const albumsTitle = document.createElement('h3');
     albumsTitle.classList.add('albums-title');
     albumsTitle.textContent = 'User Albums:';
-    
-    albumsWrapper.append(albumsTitle);
 
-    createLinksList({
-      wrapper: albumsWrapper,
+    const albumsListElement = createLinksList({
       data: albums,
       path: 'album',
       listClasses: ['albums-list'],
       itemClasses: ['album-item'],
     });
+
+    albumsWrapper.append(albumsTitle, albumsListElement);
   })
 
 renderHeader();

@@ -18,16 +18,15 @@ fetch(fetchUrl)
     const pageTitle = document.createElement('h1');
     pageTitle.classList.add('page-title');
     pageTitle.textContent = 'Posts List:';
-    
-    postsWrapper.append(pageTitle);
 
-    createLinksList({
-      wrapper: postsWrapper, 
+    const postsListElement = createLinksList({
       data: posts,
       path: 'post',
       listClasses: ['posts-list'],
       itemClasses: ['post-item']
     });
+
+    postsWrapper.append(pageTitle, postsListElement);
   })
 
 renderHeader();

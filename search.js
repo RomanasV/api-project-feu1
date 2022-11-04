@@ -91,13 +91,14 @@ function renderSearchResults(paramsObj) {
     wrapperTitle.textContent = title + ':';
 
     let params = {
-      wrapper,
       data,
       path,
       listClasses: ['search-list'],
       itemClasses: ['search-item'],
     }
-    createLinksList(params);
+    
+    const searchResultsElement = createLinksList(params);
+    wrapper.append(searchResultsElement);
   } else {
     wrapperTitle.textContent = 'No ' + title.toLowerCase() + '... :(';
   }
