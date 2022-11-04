@@ -1,3 +1,5 @@
+import { createElement } from "./functions";
+
 function renderHeader() {
   const header = document.createElement('header');
   const nav = document.createElement('nav');
@@ -32,8 +34,7 @@ function renderHeader() {
   menuItems.map(item => {
     let { title, path } = item;
   
-    const menuItemElement = document.createElement('li');
-    menuItemElement.classList.add('menu-item');
+    const menuItemElement = createElement('li', '', 'menu-item');
   
     const menuItemLink = document.createElement('a');
     menuItemLink.href = path;

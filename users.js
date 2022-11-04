@@ -1,33 +1,32 @@
-import { createLinksList } from './functions.js';
+import { createElement, createLinksList, fetchData } from './functions.js';
 import renderHeader from './header.js';
 
-fetch('https://jsonplaceholder.typicode.com/users?_embed=posts')
-  .then(res => res.json())
-  .then(users => {
-    const usersWrapper = document.querySelector('#users-wrapper');
+async function init() {
+  const users = await fetchData('https://jsonplaceholder.typicode.com/users?_embed=posts');
 
-    const pageTitle = document.createElement('h1');
-    pageTitle.classList.add('page-title');
-    pageTitle.textContent = 'Users list:';
+  const usersWrapper = document.querySelector('#users-wrapper');
+  const pageTitle = createElement('h1', 'Users list:', 'page-title');
 
-    const usersData = users.map(user => {
-      let userObj = {
-        id: user.id,
-        title: `${user.name} (${user.posts.length})`,
-      }
+  const usersData = users.map(user => {
+    let userObj = {
+      id: user.id,
+      title: `${user.name} (${user.posts.length})`,
+    }
 
-      return userObj;
-    })
-
-    const usersListElement = createLinksList({
-      data: usersData,
-      path: 'user',
-      listClasses: ['users-list'],
-      itemClasses: ['user-item'],
-    });
-
-
-    usersWrapper.append(pageTitle, usersListElement);
+    return userObj;
   })
 
-renderHeader();
+  const usersListElement = createLinksList({
+    data: usersData,
+    path: 'user',
+    listClasses: ['users-list'],
+    itemClasses: ['user-item'],
+  });
+
+
+  usersWrapper.append(pageTitle, usersListElement);
+
+  renderHeader();
+}
+
+init();

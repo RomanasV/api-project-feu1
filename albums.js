@@ -1,4 +1,4 @@
-import { firstLetterUpperCase, fetchData } from './functions.js';
+import { firstLetterUpperCase, fetchData, createElement } from './functions.js';
 import renderHeader from './header.js';
 
 async function init() {
@@ -13,15 +13,9 @@ async function init() {
 }
 
 function createAlbumsListElement(albums) {
-  const albumsContainer = document.createElement('div');
-  albumsContainer.classList.add('albums-container');
-
-  const pageTitle = document.createElement('h1');
-  pageTitle.classList.add('page-title');
-  pageTitle.textContent = 'Albums list:';
-
-  const albumsList = document.createElement('div');
-  albumsList.classList.add('albums-list');
+  const albumsContainer = createElement('div', '', 'albums-container');
+  const pageTitle = createElement('h1', 'Albums list:', 'page-title');
+  const albumsList = createElement('div', '', 'albums-list');
 
   albumsContainer.append(pageTitle, albumsList);
 
@@ -30,8 +24,7 @@ function createAlbumsListElement(albums) {
     const randomIndex = Math.floor(Math.random() * photosCount);
     const randomPhoto = album.photos[randomIndex];
 
-    const albumItem = document.createElement('div');
-    albumItem.classList.add('album-item');
+    const albumItem = createElement('div', '', 'album-item');
 
     albumItem.innerHTML = `<a href="./album.html?album_id=${album.id}">
                             <h2 class="album-title">${firstLetterUpperCase(album.title)}</h2>

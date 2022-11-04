@@ -1,4 +1,4 @@
-import { fetchData, firstLetterUpperCase, getUrlParam } from "./functions.js";
+import { createElement, fetchData, firstLetterUpperCase, getUrlParam } from "./functions.js";
 import renderHeader from "./header.js";
 
 function init() {
@@ -25,16 +25,11 @@ async function renderAlbumsList(albumId, albumWrapper) {
 
   let { title, user, photos } = album;
 
-  const albumTitle = document.createElement('h1');
-  albumTitle.classList.add('album-title', 'page-title');
-  albumTitle.textContent = firstLetterUpperCase(title);
-
-  const albumAuthor = document.createElement('span');
-  albumAuthor.classList.add('album-author');
+  const albumTitle = createElement('h1', firstLetterUpperCase(title), 'album-title page-title');
+  const albumAuthor = createElement('span', '', 'album-author');
   albumAuthor.innerHTML = `<strong>Album author:</strong> <a href="./user.html?user_id=${user.id}">${user.name}</a>`;
-
-  const photosList = document.createElement('div');
-  photosList.classList.add('photos-list');
+  
+  const photosList = createElement('div', '', 'photos-list');
 
   albumWrapper.append(albumTitle, albumAuthor, photosList);
 
