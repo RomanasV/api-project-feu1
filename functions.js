@@ -41,3 +41,51 @@ export function createLinksList(paramsObj) {
 
   return list;
 }
+
+export function renderSinglePost(post) {
+  const postTitleElement = document.createElement('h2');
+  postTitleElement.classList.add('post-title');
+  postTitleElement.textContent = firstLetterUpperCase(post.title);
+
+  const postAuthorElement = document.createElement('span');
+  postAuthorElement.classList.add('post-author');
+  postAuthorElement.innerHTML = `Author: <a href="./user.html?user_id=${post.user.id}">${post.user.name}</a>`;
+
+  const postContentElement = document.createElement('p');
+  postContentElement.classList.add('post-content');
+  postContentElement.textContent = firstLetterUpperCase(post.body);
+
+  const postContent = document.createElement('div');
+  postContent.classList.add('post-content');
+
+  postContent.append(postTitleElement, postAuthorElement, postContentElement);
+
+  return postContent;
+}
+
+export function renderAllComments(post) {
+  const commentsWrapperElement = document.createElement('div');
+  commentsWrapperElement.classList.add('comments-wrapper');
+
+  const commentsSectionTitle = document.createElement('h3');
+  commentsSectionTitle.classList.add('comments-section-title');
+  commentsSectionTitle.textContent = 'Comments:';
+
+  const commentsListElement = document.createElement('div');
+  commentsListElement.classList.add('comments-list');
+  
+  post.comments.map(comment => {
+    const commentItem = document.createElement('div');
+    commentItem.classList.add('comment-item');
+
+    commentItem.innerHTML = `<h4 class="comment-title">${firstLetterUpperCase(comment.name)}</h4>
+                              <span class="comment-author">Comment's author: ${comment.email}</span>
+                              <p class="comment-content">${firstLetterUpperCase(comment.body)}</p>`;
+
+    commentsListElement.append(commentItem);
+  })
+
+  commentsWrapperElement.append(commentsSectionTitle, commentsListElement);
+
+  return commentsWrapperElement;
+}

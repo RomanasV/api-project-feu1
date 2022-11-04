@@ -1,4 +1,4 @@
-import { firstLetterUpperCase } from './functions.js';
+import { firstLetterUpperCase, renderAllComments, renderSinglePost } from './functions.js';
 import renderHeader from './header.js';
 
 async function init() {
@@ -20,45 +20,13 @@ async function renderPosts() {
   postsList.id = 'posts-list';
 
   posts.map(post => {
-    let postItem = document.createElement('div');
+    const postItem = document.createElement('div');
     postItem.classList.add('post-item');
 
-    let postTitleElement = document.createElement('h2');
-    postTitleElement.classList.add('post-title');
-    postTitleElement.textContent = firstLetterUpperCase(post.title);
+    const postContent = renderSinglePost(post);
+    const postComments = renderAllComments(post);
 
-    let postAuthorElement = document.createElement('span');
-    postAuthorElement.classList.add('post-author');
-    postAuthorElement.innerHTML = `Author: <a href="./user.html?user_id=${post.user.id}">${post.user.name}</a>`;
-
-    let postContentElement = document.createElement('p');
-    postContentElement.classList.add('post-content');
-    postContentElement.textContent = firstLetterUpperCase(post.body);
-
-    let commentsWrapperElement = document.createElement('div');
-    commentsWrapperElement.classList.add('comments-wrapper');
-
-    let commentsSectionTitle = document.createElement('h3');
-    commentsSectionTitle.classList.add('comments-section-title');
-    commentsSectionTitle.textContent = 'Comments:';
-
-    let commentsListElement = document.createElement('div');
-    commentsListElement.classList.add('comments-list');
-    
-    post.comments.map(comment => {
-      let commentItem = document.createElement('div');
-      commentItem.classList.add('comment-item');
-
-      commentItem.innerHTML = `<h4 class="comment-title">${firstLetterUpperCase(comment.name)}</h4>
-                              <span class="comment-author">Commented by: ${comment.email}</span>
-                              <p class="comment-content">${firstLetterUpperCase(comment.body)}</p>`;
-
-      commentsListElement.append(commentItem);
-    })
-
-    commentsWrapperElement.append(commentsSectionTitle, commentsListElement);
-
-    postItem.append(postTitleElement, postAuthorElement, postContentElement, commentsWrapperElement);
+    postItem.append(postContent, postComments);
     postsList.append(postItem);
   })
 
