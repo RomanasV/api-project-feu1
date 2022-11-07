@@ -1,4 +1,4 @@
-import { fetchData, createElement } from './functions.js';
+import { createAuthorOptionElements, createNewPostElement } from './functions.js';
 
 function init() {
   const createPostForm = document.querySelector('#create-post-form');
@@ -35,26 +35,6 @@ function init() {
 
     event.target.reset();
   })
-}
-
-async function createAuthorOptionElements(selectElement) {
-  const users = await fetchData('https://jsonplaceholder.typicode.com/users');
-  
-  users.map(user => {
-    const optionElement = createElement('option', user.name);
-    optionElement.value = user.id;
-
-    selectElement.append(optionElement);
-  })
-}
-
-async function createNewPostElement(post) {
-  const user = await fetchData(`https://jsonplaceholder.typicode.com/users/${post.userId}`);
-  const newPostElement = createElement('div', '', 'new-post');
-  newPostElement.innerHTML = `<h2 class="post-title">${post.title} (id: ${post.id})</h2>
-                              <span>Author: ${user.name}</span>
-                              <p>${post.body}</p>`;
-  return newPostElement;
 }
 
 init();

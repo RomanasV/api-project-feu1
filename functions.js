@@ -92,3 +92,23 @@ export function createElement(tag, content, className = '') {
   }
   return element;
 }
+
+export async function createAuthorOptionElements(selectElement) {
+  const users = await fetchData('https://jsonplaceholder.typicode.com/users');
+  
+  users.map(user => {
+    const optionElement = createElement('option', user.name);
+    optionElement.value = user.id;
+
+    selectElement.append(optionElement);
+  })
+}
+
+export async function createNewPostElement(post) {
+  const user = await fetchData(`https://jsonplaceholder.typicode.com/users/${post.userId}`);
+  const newPostElement = createElement('div', '', 'new-post');
+  newPostElement.innerHTML = `<h2 class="post-title">${post.title} (id: ${post.id})</h2>
+                              <span>Author: ${user.name}</span>
+                              <p>${post.body}</p>`;
+  return newPostElement;
+}

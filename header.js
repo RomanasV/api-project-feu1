@@ -1,4 +1,4 @@
-import { createElement } from "./functions";
+import { createElement } from "./functions.js";
 
 function renderHeader() {
   const header = document.createElement('header');
