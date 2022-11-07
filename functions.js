@@ -117,3 +117,21 @@ export async function createNewPostElement(post) {
                               <p>${post.body}</p>`;
   return newPostElement;
 }
+
+export function createUserInfoElement(user) {
+  const userInfo = createElement('div', '', 'user-info');
+
+  let { name, username, email, website, phone, company } = user;
+  let { street, suite, city, zipcode } = user.address;
+
+  userInfo.innerHTML = `<h2 class="user-name">${name} (${username})</h2>
+                        <ul>
+                          <li><strong>Email:</strong> <a href="mailto:${email}">${email}</a></li>
+                          <li><strong>Phone:</strong> <a href="tel:${phone}">${phone}</a></li>
+                          <li><strong>Address:</strong> <a href="#">${street} ${suite}, ${city} (zipcode: ${zipcode})</a></li>
+                          <li><strong>Website:</strong> <a href="https://${website}" target="_blank">${website}</a></li>
+                          <li><strong>Work:</strong> ${company.name}</li>
+                          <li><strong>Company Catch Phrase:</strong> ${company.catchPhrase}</li>
+                        </ul>`;
+  return userInfo;
+}
