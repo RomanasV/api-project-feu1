@@ -1,9 +1,9 @@
 import { createUserInfoElement } from "./functions.js";
 
 function init() {
-  const createUserForm = document.querySelector('#create-user-form');
+  const userForm = document.querySelector('#user-form');
 
-  createUserForm.addEventListener('submit', async (event) => {
+  userForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const { name, username, email, street, suite, city, zipcode, lat, lng, phone, website, companyName, companyCatch, companyBs } = event.target.elements;
@@ -41,11 +41,11 @@ function init() {
 
     const createdUser = await res.json();
 
-    const createdUserInfoElement = document.querySelector('#created-user-info');
+    const userInfoElementWrapper = document.querySelector('#user-info-wrapper');
     const userInfoElement = createUserInfoElement(createdUser);
     
-    createdUserInfoElement.innerHTML = '';
-    createdUserInfoElement.append(userInfoElement);
+    userInfoElementWrapper.innerHTML = '';
+    userInfoElementWrapper.append(userInfoElement);
     event.target.reset();
   })
 }
