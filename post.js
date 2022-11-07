@@ -1,5 +1,5 @@
 import renderHeader from './header.js';
-import { getUrlParam, renderSinglePost, renderAllComments, fetchData, createElement } from './functions.js';
+import { getUrlParam, renderSinglePost, renderAllComments, fetchData, createElement, renderSingleComment } from './functions.js';
 
 async function init() {
   const postId = getUrlParam('post_id');
@@ -40,7 +40,12 @@ async function init() {
     })
 
     const createdComment = await res.json();
-    console.log(createdComment);
+    const singleCommentElement = renderSingleComment(createdComment);
+
+    const commentsList = postComments.querySelector('.comments-list');
+    commentsList.append(singleCommentElement);
+
+    event.target.reset();
   })
 }
 

@@ -61,18 +61,23 @@ export function renderAllComments(post) {
   const commentsListElement = createElement('div', '', 'comments-list');
   
   post.comments.map(comment => {
-    const commentItem = createElement('div', '', 'comment-item');
-
-    commentItem.innerHTML = `<h4 class="comment-title">${firstLetterUpperCase(comment.name)}</h4>
-                              <span class="comment-author">Comment's author: ${comment.email}</span>
-                              <p class="comment-content">${firstLetterUpperCase(comment.body)}</p>`;
-
-    commentsListElement.append(commentItem);
+    const singleCommentElement = renderSingleComment(comment);
+    commentsListElement.append(singleCommentElement);
   })
 
   commentsWrapperElement.append(commentsSectionTitle, commentsListElement);
 
   return commentsWrapperElement;
+}
+
+export function renderSingleComment(comment) {
+  const commentItem = createElement('div', '', 'comment-item');
+
+  commentItem.innerHTML = `<h4 class="comment-title">${firstLetterUpperCase(comment.name)}</h4>
+                            <span class="comment-author">Comment's author: ${comment.email}</span>
+                           <p class="comment-content">${firstLetterUpperCase(comment.body)}</p>`;
+
+  return commentItem;
 }
 
 export async function fetchData(url) {
