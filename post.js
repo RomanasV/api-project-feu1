@@ -1,5 +1,5 @@
 import renderHeader from './header.js';
-import { getUrlParam, renderSinglePost, renderAllComments, fetchData } from './functions.js';
+import { getUrlParam, renderSinglePost, renderAllComments, fetchData, createElement } from './functions.js';
 
 async function init() {
   const postId = getUrlParam('post_id');
@@ -7,11 +7,13 @@ async function init() {
   const post = await fetchData(`https://jsonplaceholder.typicode.com/posts/${postId}?_expand=user&_embed=comments`);
   
   const postWrapper = document.querySelector('#post-wrapper');
+  const editPostLink = createElement('a', 'Edit Post', 'edit-post-button');
+  editPostLink.href = './edit-post.html?post_id=' + postId;
   const postContent = renderSinglePost(post);
   const postComments = renderAllComments(post);
   const otherPosts = renderOtherPostsList(post);
 
-  postWrapper.append(postContent, otherPosts, postComments);
+  postWrapper.append(editPostLink, postContent, otherPosts, postComments);
 
   renderHeader();
 }
