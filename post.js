@@ -16,6 +16,32 @@ async function init() {
   postWrapper.append(editPostLink, postContent, otherPosts, postComments);
 
   renderHeader();
+
+  const createCommentForm = document.querySelector('#create-comment-form');
+
+  createCommentForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const name = event.target.elements.name.value;
+    const email = event.target.elements.email.value;
+    const body = event.target.elements.body.value;
+
+    const res = await fetch('https://jsonplaceholder.typicode.com/comments', {
+      method: 'POST',
+      body: JSON.stringify({
+        name,
+        email,
+        body,
+        postId
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+
+    const createdComment = await res.json();
+    console.log(createdComment);
+  })
 }
 
 function renderOtherPostsList(post) {
