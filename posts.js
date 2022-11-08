@@ -25,7 +25,7 @@ async function init() {
     itemClasses: ['post-item']
   });
 
-  const pagination = renderPaginationLinks();
+  const pagination = renderPaginationLinks(page);
 
   postsWrapper.append(pageTitle, pagination, postsListElement);
   
