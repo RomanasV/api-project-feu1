@@ -8,22 +8,58 @@ export default function renderPaginationLinks(page) {
 
   const paginationWrapper = createElement('div', '', 'pagination-wrapper');
 
-  const firstPaginationElement = createSinglePaginationElement(currentPage, 1, 'First Page', 'first-pagination-link');
-  paginationWrapper.append(firstPaginationElement);
+  const firstPaginationElement = createSinglePaginationElement({
+    currentPage, 
+    page: 1,
+    className: 'first-pagination-link',
+    text: 'First Page', 
+    pageLink: 1,
+  });
+
+  const previousPaginationElement = createSinglePaginationElement({
+    currentPage, 
+    page: 1,
+    className: 'previous-pagination-link',
+    text: 'Previous', 
+    pageLink: currentPage - 1,
+  });
+
+  paginationWrapper.append(firstPaginationElement, previousPaginationElement);
 
   for (let i = 1; i <= pages; i++) {
-    const paginationElement = createSinglePaginationElement(currentPage, i, i);
+    const paginationElement = createSinglePaginationElement({
+      currentPage, 
+      page: i,
+      text: i, 
+      pageLink: i,
+    });
     paginationWrapper.append(paginationElement);
   }
 
-  const lastPaginationElement = createSinglePaginationElement(currentPage, pages, 'Last Page', 'last-pagination-link');
+  const nextPaginationElement = createSinglePaginationElement({
+    currentPage, 
+    page: pages,
+    className: 'next-pagination-link',
+    text: 'Next', 
+    pageLink: currentPage + 1,
+  });
 
-  paginationWrapper.append(lastPaginationElement);
+  const lastPaginationElement = createSinglePaginationElement({
+    currentPage, 
+    page: pages,
+    className: 'last-pagination-link',
+    text: 'Last Page', 
+    pageLink: pages,
+  });
+
+  paginationWrapper.append(nextPaginationElement, lastPaginationElement);
   return paginationWrapper;
 }
 
-function createSinglePaginationElement(currentPage, page, text, className) {
-  if (!currentPage || !page || !text) {
+function createSinglePaginationElement(data) {
+  let { currentPage, page, text, className, pageLink } = data;
+
+  if (!currentPage || !page || !text || !pageLink) {
     return '';
   }
 
@@ -35,7 +71,7 @@ function createSinglePaginationElement(currentPage, page, text, className) {
     paginationElement = createElement('span', text, 'pagination-link current-page-link');
   } else {
     paginationElement = createElement('a', text, 'pagination-link');
-    paginationElement.href = `.${pathName}?page=${page}`;
+    paginationElement.href = `.${pathName}?page=${pageLink}`;
   }
 
   if (className) {
