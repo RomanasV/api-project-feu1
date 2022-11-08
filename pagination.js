@@ -8,34 +8,39 @@ export default function renderPaginationLinks(page) {
 
   const paginationWrapper = createElement('div', '', 'pagination-wrapper');
 
-  if (currentPage === 1) {
-    const firstPaginationElement = createElement('span', 'First Page', 'pagination-link current-pagination-link first-pagination-link');
-    paginationWrapper.append(firstPaginationElement);
-  } else {
-    const firstPaginationLink = createElement('a', 'First Page', 'pagination-link first-pagination-link');
-    firstPaginationLink.href = './posts.html?page=1';
-    paginationWrapper.append(firstPaginationLink);
-  }
+  const firstPaginationElement = createSinglePaginationElement(currentPage, 1, 'First Page', 'first-pagination-link');
+  paginationWrapper.append(firstPaginationElement);
 
   for (let i = 1; i <= pages; i++) {
-    if (currentPage === i) {
-      const paginationElement = createElement('span', i, 'pagination-link current-page-link');
-      paginationWrapper.append(paginationElement);
-    } else {
-      const paginationLink = createElement('a', i, 'pagination-link');
-      paginationLink.href = './posts.html?page=' + i;
-      paginationWrapper.append(paginationLink);
-    }
+    const paginationElement = createSinglePaginationElement(currentPage, i, i);
+    paginationWrapper.append(paginationElement);
   }
 
-  if (currentPage === pages) {
-    const lastPaginationElement = createElement('span', 'Last Page', 'pagination-link last-pagination-link current-page-link');
-    paginationWrapper.append(lastPaginationElement);
-  } else {
-    const lastPaginationLink = createElement('a', 'Last Page', 'pagination-link last-pagination-link');
-    lastPaginationLink.href = './posts.html?page=' + pages;
-    paginationWrapper.append(lastPaginationLink);
-  }
+  const lastPaginationElement = createSinglePaginationElement(currentPage, pages, 'Last Page', 'last-pagination-link');
 
+  paginationWrapper.append(lastPaginationElement);
   return paginationWrapper;
+}
+
+function createSinglePaginationElement(currentPage, page, text, className) {
+  if (!currentPage || !page || !text) {
+    return '';
+  }
+
+  const pathName = document.location.pathname
+
+  let paginationElement;
+
+  if (currentPage === page) {
+    paginationElement = createElement('span', text, 'pagination-link current-page-link');
+  } else {
+    paginationElement = createElement('a', text, 'pagination-link');
+    paginationElement.href = `.${pathName}?page=${page}`;
+  }
+
+  if (className) {
+    paginationElement.classList.add(className);
+  }
+
+  return paginationElement;
 }
