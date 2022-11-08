@@ -1,5 +1,6 @@
 import { createLinksList, fetchData, getUrlParam, createElement } from "./functions.js";
 import renderHeader from "./header.js";
+import renderPaginationLinks from "./pagination.js";
 
 async function init() {
   const userId = getUrlParam('user_id');
@@ -23,7 +24,9 @@ async function init() {
     itemClasses: ['post-item']
   });
 
-  postsWrapper.append(pageTitle, postsListElement);
+  const pagination = renderPaginationLinks();
+
+  postsWrapper.append(pageTitle, pagination, postsListElement);
   
   renderHeader();
 }
