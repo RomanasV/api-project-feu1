@@ -122,3 +122,8 @@ PAGINATION:
 15.3.1. Sukurti nuorodas pirmam ir paskutiniam puslapiui.
 15.3.2. Jeigu šiuo metu esama pirmame puslapyje, tai jo nuorodos paspausti negalima.
 15.3.3. Jeigu šiuo metu esama paskutiniame puslapyje, tai jo nuorodos paspausti negalima.
+
+15.4.1. Sukurti nuorodas kitam ir praejusiam puslapiams (previous ir next).
+15.4.2. Jeigu esama trečiame puslapyje, tai previous puslapis turi būti antras, o next puslapis turi būti ketvirtas.
+15.4.3. Jeigu šiuo metu esama pirmame puslapyje, tai previous nuorodos paspausti negalima.
+15.4.4. Jeigu šiuo metu esama paskutiniame puslapyje, tai next nuorodos paspausti negalima.
