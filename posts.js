@@ -4,13 +4,14 @@ import renderPaginationLinks from "./pagination.js";
 
 async function init() {
   const userId = getUrlParam('user_id');
-  const page = getUrlParam('page');
+  const limit = getUrlParam('limit') ? getUrlParam('limit') : 10;
+  const page = getUrlParam('page') ? getUrlParam('page') : 1;
 
   let fetchUrl = '';
   if (userId) {
     fetchUrl = `https://jsonplaceholder.typicode.com/users/${userId}/posts`;
   } else {
-    fetchUrl = `https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=25`;
+    fetchUrl = `https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=${limit}`;
   }
 
   const posts = await fetchData(fetchUrl);
@@ -25,7 +26,7 @@ async function init() {
     itemClasses: ['post-item']
   });
 
-  const pagination = renderPaginationLinks(page);
+  const pagination = renderPaginationLinks({page, limit});
 
   postsWrapper.append(pageTitle, pagination, postsListElement);
   

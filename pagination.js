@@ -1,8 +1,8 @@
 import { createElement } from "./functions.js";
 
-export default function renderPaginationLinks(page) {
+export default function renderPaginationLinks(data) {
+  let { page, limit } = data;
   const total = 100;
-  const limit = 25;
   const pages = Math.ceil(total / limit);
   const currentPage = Number(page);
 
@@ -14,6 +14,7 @@ export default function renderPaginationLinks(page) {
     className: 'first-pagination-link',
     text: 'First Page', 
     pageLink: 1,
+    limit
   });
 
   const previousPaginationElement = createSinglePaginationElement({
@@ -22,6 +23,7 @@ export default function renderPaginationLinks(page) {
     className: 'previous-pagination-link',
     text: 'Previous', 
     pageLink: currentPage - 1,
+    limit
   });
 
   paginationWrapper.append(firstPaginationElement, previousPaginationElement);
@@ -32,6 +34,7 @@ export default function renderPaginationLinks(page) {
       page: i,
       text: i, 
       pageLink: i,
+      limit
     });
     paginationWrapper.append(paginationElement);
   }
@@ -42,6 +45,7 @@ export default function renderPaginationLinks(page) {
     className: 'next-pagination-link',
     text: 'Next', 
     pageLink: currentPage + 1,
+    limit
   });
 
   const lastPaginationElement = createSinglePaginationElement({
@@ -50,6 +54,7 @@ export default function renderPaginationLinks(page) {
     className: 'last-pagination-link',
     text: 'Last Page', 
     pageLink: pages,
+    limit
   });
 
   paginationWrapper.append(nextPaginationElement, lastPaginationElement);
@@ -57,7 +62,7 @@ export default function renderPaginationLinks(page) {
 }
 
 function createSinglePaginationElement(data) {
-  let { currentPage, page, text, className, pageLink } = data;
+  let { currentPage, page, text, className, pageLink, limit } = data;
 
   if (!currentPage || !page || !text || !pageLink) {
     return '';
@@ -71,7 +76,7 @@ function createSinglePaginationElement(data) {
     paginationElement = createElement('span', text, 'pagination-link current-page-link');
   } else {
     paginationElement = createElement('a', text, 'pagination-link');
-    paginationElement.href = `.${pathName}?page=${pageLink}`;
+    paginationElement.href = `.${pathName}?page=${pageLink}&limit=${limit}`;
   }
 
   if (className) {
