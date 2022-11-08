@@ -8,6 +8,10 @@ export default function renderPaginationLinks(page) {
 
   const paginationWrapper = createElement('div', '', 'pagination-wrapper');
 
+  const firstPaginationLink = createElement('a', 'First Page', 'pagination-link first-pagination-link');
+  firstPaginationLink.href = './posts.html?page=1';
+  paginationWrapper.append(firstPaginationLink);
+
   for (let i = 1; i <= pages; i++) {
     if (currentPage === i) {
       const paginationElement = createElement('span', i, 'pagination-link current-page-link');
@@ -18,6 +22,10 @@ export default function renderPaginationLinks(page) {
       paginationWrapper.append(paginationLink);
     }
   }
+
+  const lastPaginationLink = createElement('a', 'Last Page', 'pagination-link last-pagination-link');
+  lastPaginationLink.href = './posts.html?page=' + pages;
+  paginationWrapper.append(lastPaginationLink);
 
   return paginationWrapper;
 }
