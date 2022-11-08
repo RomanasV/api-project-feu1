@@ -8,7 +8,7 @@ async function init() {
   if (userId) {
     fetchUrl = `https://jsonplaceholder.typicode.com/users/${userId}/posts`;
   } else {
-    fetchUrl = 'https://jsonplaceholder.typicode.com/posts';
+    fetchUrl = 'https://jsonplaceholder.typicode.com/posts?_page=2&_limit=25';
   }
 
   const posts = await fetchData(fetchUrl);
