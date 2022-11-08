@@ -2,7 +2,7 @@ import { createElement } from "./functions.js";
 
 export default function renderPaginationLinks() {
   const total = 100;
-  const limit = 15;
+  const limit = 25;
   const pages = Math.ceil(total / limit);
 
   const paginationWrapper = createElement('div', '', 'pagination-wrapper');

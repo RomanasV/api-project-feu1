@@ -4,12 +4,13 @@ import renderPaginationLinks from "./pagination.js";
 
 async function init() {
   const userId = getUrlParam('user_id');
+  const page = getUrlParam('page');
 
   let fetchUrl = '';
   if (userId) {
     fetchUrl = `https://jsonplaceholder.typicode.com/users/${userId}/posts`;
   } else {
-    fetchUrl = 'https://jsonplaceholder.typicode.com/posts?_page=2&_limit=25';
+    fetchUrl = `https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=25`;
   }
 
   const posts = await fetchData(fetchUrl);
