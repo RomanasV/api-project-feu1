@@ -14,7 +14,9 @@ async function init() {
     fetchUrl = `https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=${limit}`;
   }
 
-  const posts = await fetchData(fetchUrl);
+  const res = await fetch(fetchUrl);  
+  const posts = await res.json();
+  const total = res.headers.get('x-total-count');
   const postsWrapper = document.querySelector('#posts-wrapper');
 
   const pageTitle = createElement('h1', 'Posts List:', 'page-title');
@@ -26,7 +28,7 @@ async function init() {
     itemClasses: ['post-item']
   });
 
-  const pagination = renderPaginationLinks({page, limit});
+  const pagination = renderPaginationLinks({page, limit, total});
 
   postsWrapper.append(pageTitle, pagination, postsListElement);
   

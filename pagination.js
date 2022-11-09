@@ -1,10 +1,14 @@
 import { createElement } from "./functions.js";
 
 export default function renderPaginationLinks(data) {
-  let { page, limit } = data;
-  const total = 100;
+  let { page, limit, total } = data;
   const pages = Math.ceil(total / limit);
   const currentPage = Number(page);
+
+  // let params = new URLSearchParams(location.search);
+  // params.set('limit', '15');
+  // params.set('page', '1');
+  // location.search = params.toString();
 
   const paginationWrapper = createElement('div', '', 'pagination-wrapper');
 
@@ -68,7 +72,7 @@ function createSinglePaginationElement(data) {
     return '';
   }
 
-  const pathName = document.location.pathname
+  const pathName = document.location.pathname;
 
   let paginationElement;
 
